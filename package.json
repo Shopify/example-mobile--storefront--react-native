@@ -1,0 +1,15 @@
+{
+  "name": "example-mobile-storefront-react-native",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "react-native start",
+    "ios": "react-native run-ios",
+    "android": "react-native run-android"
+  },
+  "dependencies": {
+    "@shopify/checkout-sheet-kit": "^3.0.0",
+    "react": "^18.2.0",
+    "react-native": "^0.73.0"
+  }
+}
