@@ -26,11 +26,15 @@ export async function generateCodeVerifier() {
 }
 
 export async function generateCodeChallenge(codeVerifier) {
-  const digestString = await Crypto.digestStringAsync(
+  const base64Digest = await Crypto.digestStringAsync(
     Crypto.CryptoDigestAlgorithm.SHA256,
     codeVerifier,
+    { encoding: Crypto.CryptoEncoding.BASE64 },
   );
-  return encodeBase64Url(digestString);
+  return base64Digest
+    .replace(/\+/g, '-')
+    .replace(/\//g, '_')
+    .replace(/=+$/, '');
 }
 // [END auth.generate-pkce]
 

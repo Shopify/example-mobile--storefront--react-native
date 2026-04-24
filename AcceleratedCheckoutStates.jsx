@@ -8,19 +8,15 @@ import {
 function CheckoutButtons() {
   const [renderState, setRenderState] = useState(RenderState.loading);
 
-  if (renderState === RenderState.loading) {
-    return <ProgressView />;
-  }
-
-  if (renderState === RenderState.error) {
-    return <ErrorState />;
-  }
-
   return (
-    <AcceleratedCheckoutButtons
-      cartID="gid://shopify/Cart/123"
-      onRenderStateChange={setRenderState}
-    />
+    <>
+      {renderState === RenderState.loading && <ProgressView />}
+      {renderState === RenderState.error && <ErrorState />}
+      <AcceleratedCheckoutButtons
+        cartID="gid://shopify/Cart/123"
+        onRenderStateChange={setRenderState}
+      />
+    </>
   );
 }
 
