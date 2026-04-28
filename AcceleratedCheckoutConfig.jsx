@@ -1,12 +1,13 @@
 // [START accelerated-checkouts.configure]
-import React from 'react';
+import React, { useState } from 'react';
 import {
-  Configuration,
   ShopifyCheckoutSheetProvider,
   ApplePayContactField,
 } from '@shopify/checkout-sheet-kit';
+import ProductListScreen from './ProductListScreen';
+import CartScreen from './CartScreen';
 
-const checkoutKitConfiguration: Configuration = {
+const checkoutKitConfiguration = {
   acceleratedCheckouts: {
     storefrontDomain: '{shop}.myshopify.com',
     storefrontAccessToken: 'your-storefront-access-token',
@@ -25,9 +26,18 @@ const checkoutKitConfiguration: Configuration = {
 };
 
 function App() {
+  const [checkoutUrl, setCheckoutUrl] = useState(null);
+
   return (
     <ShopifyCheckoutSheetProvider configuration={checkoutKitConfiguration}>
-      <App />
+      {checkoutUrl ? (
+        <CartScreen
+          checkoutUrl={checkoutUrl}
+          onOrderComplete={() => setCheckoutUrl(null)}
+        />
+      ) : (
+        <ProductListScreen onCheckoutReady={setCheckoutUrl} />
+      )}
     </ShopifyCheckoutSheetProvider>
   );
 }

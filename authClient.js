@@ -26,11 +26,15 @@ export async function generateCodeVerifier() {
 }
 
 export async function generateCodeChallenge(codeVerifier) {
-  const digestString = await Crypto.digestStringAsync(
+  const base64Digest = await Crypto.digestStringAsync(
     Crypto.CryptoDigestAlgorithm.SHA256,
     codeVerifier,
+    { encoding: Crypto.CryptoEncoding.BASE64 },
   );
-  return encodeBase64Url(digestString);
+  return base64Digest
+    .replace(/\+/g, '-')
+    .replace(/\//g, '_')
+    .replace(/=+$/, '');
 }
 // [END auth.generate-pkce]
 
@@ -158,8 +162,23 @@ export async function createAuthenticatedCart(variantId, accessToken) {
     },
   );
 
-  const json = await response.json();
-  return json.data.cartCreate.cart.checkoutUrl;
+  const { data, errors } = await response.json();
+
+  if (errors) {
+    throw new Error(errors[0].message);
+  }
+
+  const { cart, userErrors } = data?.cartCreate ?? {};
+
+  if (userErrors?.length > 0) {
+    throw new Error(userErrors[0].message);
+  }
+
+  if (!cart?.checkoutUrl) {
+    throw new Error('Cart creation failed: no checkout URL returned.');
+  }
+
+  return cart.checkoutUrl;
 }
 // [END auth.create-authenticated-cart]
 
