@@ -3,6 +3,7 @@ import React from 'react';
 import {
   AcceleratedCheckoutButtons,
   AcceleratedCheckoutWallet,
+  ApplePayStyle,
 } from '@shopify/checkout-sheet-kit';
 
 function ShopPayOnly() {
@@ -44,5 +45,20 @@ function CustomCornerRadius() {
   );
 }
 
-export { ShopPayOnly, ApplePayOnly, BothWallets, CustomCornerRadius };
+function CustomApplePayStyle() {
+  return (
+    <AcceleratedCheckoutButtons
+      cartID="gid://shopify/Cart/123"
+      applePayStyle={ApplePayStyle.whiteOutline}
+    />
+  );
+}
+
+export {
+  ShopPayOnly,
+  ApplePayOnly,
+  BothWallets,
+  CustomCornerRadius,
+  CustomApplePayStyle,
+};
 // [END accelerated-checkouts.customize]
