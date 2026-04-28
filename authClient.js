@@ -162,8 +162,23 @@ export async function createAuthenticatedCart(variantId, accessToken) {
     },
   );
 
-  const json = await response.json();
-  return json.data.cartCreate.cart.checkoutUrl;
+  const { data, errors } = await response.json();
+
+  if (errors) {
+    throw new Error(errors[0].message);
+  }
+
+  const { cart, userErrors } = data?.cartCreate ?? {};
+
+  if (userErrors?.length > 0) {
+    throw new Error(userErrors[0].message);
+  }
+
+  if (!cart?.checkoutUrl) {
+    throw new Error('Cart creation failed: no checkout URL returned.');
+  }
+
+  return cart.checkoutUrl;
 }
 // [END auth.create-authenticated-cart]
 
