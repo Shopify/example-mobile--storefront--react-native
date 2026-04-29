@@ -108,7 +108,8 @@ async function createCart(variantId, quantity = 1) {
 
 // [START integrate.cart-permalink]
 function buildCartPermalink(variantId, quantity = 1) {
-  return `https://${SHOP_DOMAIN}/cart/${variantId}:${quantity}`;
+  const numericVariantId = variantId.split('/').pop();
+  return `https://${SHOP_DOMAIN}/cart/${numericVariantId}:${quantity}`;
 }
 // [END integrate.cart-permalink]
 
