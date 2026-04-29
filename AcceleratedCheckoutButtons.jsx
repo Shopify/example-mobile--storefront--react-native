@@ -5,7 +5,7 @@ import { AcceleratedCheckoutButtons } from '@shopify/checkout-sheet-kit';
 function CartView() {
   return (
     <AcceleratedCheckoutButtons
-      cartID="gid://shopify/Cart/123"
+      cartId="gid://shopify/Cart/123"
     />
   );
 }
@@ -13,7 +13,7 @@ function CartView() {
 function ProductView() {
   return (
     <AcceleratedCheckoutButtons
-      variantID="gid://shopify/ProductVariant/123"
+      variantId="gid://shopify/ProductVariant/123"
       quantity={1}
     />
   );

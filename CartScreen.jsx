@@ -16,10 +16,10 @@ function CartScreen({ checkoutUrl, onOrderComplete }) {
       }
     );
 
-    const canceledSub = shopifyCheckout.addEventListener(
-      'canceled',
+    const closedSub = shopifyCheckout.addEventListener(
+      'close',
       () => {
-        console.log('Checkout canceled');
+        console.log('Checkout closed before completion');
       }
     );
 
@@ -32,7 +32,7 @@ function CartScreen({ checkoutUrl, onOrderComplete }) {
 
     return () => {
       completedSub.remove();
-      canceledSub.remove();
+      closedSub.remove();
       failedSub.remove();
     };
   }, [shopifyCheckout]);
