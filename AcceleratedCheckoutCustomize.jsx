@@ -9,7 +9,7 @@ import {
 function ShopPayOnly() {
   return (
     <AcceleratedCheckoutButtons
-      cartID="gid://shopify/Cart/123"
+      cartId="gid://shopify/Cart/123"
       wallets={[AcceleratedCheckoutWallet.shopPay]}
     />
   );
@@ -18,7 +18,7 @@ function ShopPayOnly() {
 function ApplePayOnly() {
   return (
     <AcceleratedCheckoutButtons
-      cartID="gid://shopify/Cart/123"
+      cartId="gid://shopify/Cart/123"
       wallets={[AcceleratedCheckoutWallet.applePay]}
     />
   );
@@ -27,7 +27,7 @@ function ApplePayOnly() {
 function BothWallets() {
   return (
     <AcceleratedCheckoutButtons
-      cartID="gid://shopify/Cart/123"
+      cartId="gid://shopify/Cart/123"
       wallets={[
         AcceleratedCheckoutWallet.shopPay,
         AcceleratedCheckoutWallet.applePay,
@@ -39,7 +39,7 @@ function BothWallets() {
 function CustomCornerRadius() {
   return (
     <AcceleratedCheckoutButtons
-      cartID="gid://shopify/Cart/123"
+      cartId="gid://shopify/Cart/123"
       cornerRadius={16}
     />
   );
@@ -48,7 +48,7 @@ function CustomCornerRadius() {
 function CustomApplePayStyle() {
   return (
     <AcceleratedCheckoutButtons
-      cartID="gid://shopify/Cart/123"
+      cartId="gid://shopify/Cart/123"
       applePayStyle={ApplePayStyle.whiteOutline}
     />
   );

@@ -13,8 +13,11 @@ let savedState = null;
 
 // [START auth.generate-pkce]
 function encodeBase64Url(bytes) {
-  return Buffer.from(bytes)
-    .toString('base64')
+  let binary = '';
+  for (let i = 0; i < bytes.byteLength; i++) {
+    binary += String.fromCharCode(bytes[i]);
+  }
+  return globalThis.btoa(binary)
     .replace(/\+/g, '-')
     .replace(/\//g, '_')
     .replace(/=+$/, '');
@@ -56,11 +59,12 @@ async function discoverAuthEndpoints() {
 // Authorization URL
 
 // [START auth.build-auth-url]
-function generateRandomString(length) {
+async function generateRandomString(length) {
   const characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  const bytes = await Crypto.getRandomBytesAsync(length);
   let result = '';
   for (let i = 0; i < length; i++) {
-    result += characters.charAt(Math.floor(Math.random() * characters.length));
+    result += characters.charAt(bytes[i] % characters.length);
   }
   return result;
 }
@@ -69,7 +73,7 @@ export async function buildAuthorizationUrl() {
   codeVerifier = await generateCodeVerifier();
   const codeChallenge = await generateCodeChallenge(codeVerifier);
   const { authEndpoint } = await discoverAuthEndpoints();
-  savedState = generateRandomString(36);
+  savedState = await generateRandomString(36);
 
   const url = new URL(authEndpoint);
   url.searchParams.append('scope', 'openid email customer-account-api:full');

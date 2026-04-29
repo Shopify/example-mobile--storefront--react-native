@@ -2,10 +2,10 @@
 import React from 'react';
 import { AcceleratedCheckoutButtons } from '@shopify/checkout-sheet-kit';
 
-function CheckoutWithEvents({ cartID }) {
+function CheckoutWithEvents({ cartId }) {
   return (
     <AcceleratedCheckoutButtons
-      cartID={cartID}
+      cartId={cartId}
       onComplete={(event) => {
         // Clear cart — cart IDs expire after checkout
       }}

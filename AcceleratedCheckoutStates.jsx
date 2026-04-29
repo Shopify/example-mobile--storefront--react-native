@@ -7,23 +7,23 @@ import {
 } from '@shopify/checkout-sheet-kit';
 
 function CheckoutButtons() {
-  const [renderState, setRenderState] = useState(RenderState.loading);
+  const [renderState, setRenderState] = useState(RenderState.Loading);
 
   return (
     <View>
-      {renderState === RenderState.loading && (
+      {renderState === RenderState.Loading && (
         <View style={styles.placeholder}>
           <ActivityIndicator />
         </View>
       )}
-      {renderState === RenderState.error && (
+      {renderState === RenderState.Error && (
         <View style={styles.placeholder}>
           <Text>Couldn't load checkout. Please try again.</Text>
         </View>
       )}
       <AcceleratedCheckoutButtons
-        cartID="gid://shopify/Cart/123"
-        onRenderStateChange={setRenderState}
+        cartId="gid://shopify/Cart/123"
+        onRenderStateChange={(event) => setRenderState(event.state)}
       />
     </View>
   );
